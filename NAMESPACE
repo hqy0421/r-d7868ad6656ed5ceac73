@@ -17,7 +17,11 @@ S3method(as_tibble,matrix)
 S3method(as_tibble,poly)
 S3method(as_tibble,table)
 S3method(as_tibble,ts)
+S3method(distinct_state,data.frame)
+S3method(distinct_state,default)
+S3method(format,tbl_df_distinct_state)
 S3method(format,trunc_mat)
+S3method(print,tbl_df_distinct_state)
 S3method(print,trunc_mat)
 S3method(quote_n,character)
 S3method(quote_n,default)
@@ -38,6 +42,8 @@ export(column_to_rownames)
 export(data_frame)
 export(data_frame_)
 export(deframe)
+export(distinct_state)
+export(collect_distinct_report)
 export(enframe)
 export(frame_data)
 export(frame_matrix)
@@ -45,9 +51,11 @@ export(glimpse)
 export(has_name)
 export(has_rownames)
 export(is.tibble)
+export(is_distinct_state)
 export(is_tibble)
 export(lst)
 export(lst_)
+export(merge_distinct_state)
 export(new_tibble)
 export(num)
 export(obj_sum)
@@ -107,14 +115,22 @@ importFrom(vctrs,
   vec_as_subscript2,
   vec_assign,
   vec_c,
+  vec_detect_missing,
+  vec_init,
   vec_is,
+  vec_match,
   vec_names,
   vec_names2,
+  vec_order,
+  vec_ptype,
+  vec_ptype2,
   vec_ptype_abbr,
   vec_rbind,
   vec_recycle,
+  vec_rep,
   vec_set_names,
   vec_size,
-  vec_slice
+  vec_slice,
+  vec_unique
 )
 useDynLib(tibble, .registration = TRUE)
