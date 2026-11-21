@@ -38,12 +38,12 @@ export(as_tibble)
 export(as_tibble_col)
 export(as_tibble_row)
 export(char)
+export(collect_distinct_report)
 export(column_to_rownames)
 export(data_frame)
 export(data_frame_)
 export(deframe)
 export(distinct_state)
-export(collect_distinct_report)
 export(enframe)
 export(frame_data)
 export(frame_matrix)
@@ -115,22 +115,14 @@ importFrom(vctrs,
   vec_as_subscript2,
   vec_assign,
   vec_c,
-  vec_detect_missing,
-  vec_init,
   vec_is,
-  vec_match,
   vec_names,
   vec_names2,
-  vec_order,
-  vec_ptype,
-  vec_ptype2,
   vec_ptype_abbr,
   vec_rbind,
   vec_recycle,
-  vec_rep,
   vec_set_names,
   vec_size,
-  vec_slice,
-  vec_unique
+  vec_slice
 )
 useDynLib(tibble, .registration = TRUE)

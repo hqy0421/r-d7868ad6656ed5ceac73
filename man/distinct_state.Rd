@@ -2,15 +2,9 @@
 % Please edit documentation in R/distinct.R
 \name{distinct_state}
 \alias{distinct_state}
-\alias{distinct_state.data.frame}
-\alias{distinct_state.default}
 \title{Mergeable exact distinct-count state for a shard of events}
 \usage{
 distinct_state(x, dimensions, id)
-
-\method{distinct_state}{data.frame}(x, dimensions, id)
-
-\method{distinct_state}{default}(x, dimensions, id)
 }
 \arguments{
 \item{x}{A data frame containing the dimension columns and the id column.}

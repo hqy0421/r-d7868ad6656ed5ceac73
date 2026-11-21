@@ -9,8 +9,14 @@
 # idempotent: the order of shards and repeated merges of the same shard do not
 # change the result.
 
-new_distinct_state <- function(records, zero_groups, dim_ptype, id_ptype,
-                               dimensions, id_name) {
+new_distinct_state <- function(
+  records,
+  zero_groups,
+  dim_ptype,
+  id_ptype,
+  dimensions,
+  id_name
+) {
   if (!is.na(id_name)) {
     stopifnot(
       is.data.frame(records),
@@ -111,7 +117,11 @@ select_columns <- function(quo, x, call) {
       distinct_abort(
         c(
           "Column not found.",
-          x = paste0("Column ", encodeString(nm, quote = "\""), " doesn't exist.")
+          x = paste0(
+            "Column ",
+            encodeString(nm, quote = "\""),
+            " doesn't exist."
+          )
         ),
         call = call
       )
@@ -372,7 +382,9 @@ merge_distinct_state <- function(...) {
         c(
           "All states must use the same dimension columns.",
           x = paste0(
-            "State ", i, " uses ",
+            "State ",
+            i,
+            " uses ",
             paste0(encodeString(st$dimensions, quote = "\""), collapse = ", "),
             ", expected ",
             paste0(
@@ -390,9 +402,13 @@ merge_distinct_state <- function(...) {
         c(
           "All states must use the same id column.",
           x = paste0(
-            "State ", i, " uses id column ",
-            encodeString(st$id_name, quote = "\""), ", expected ",
-            encodeString(anchor$id_name, quote = "\""), "."
+            "State ",
+            i,
+            " uses id column ",
+            encodeString(st$id_name, quote = "\""),
+            ", expected ",
+            encodeString(anchor$id_name, quote = "\""),
+            "."
           )
         ),
         call = rlang::caller_env()
@@ -449,8 +465,12 @@ check_levels <- function(levels, dimensions, call) {
 
   for (i in seq_along(levels)) {
     lvl <- levels[[i]]
-    if (!is.character(lvl) || anyNA(lvl) ||
-      !all(lvl %in% dimensions) || anyDuplicated(lvl) > 0L) {
+    if (
+      !is.character(lvl) ||
+        anyNA(lvl) ||
+        !all(lvl %in% dimensions) ||
+        anyDuplicated(lvl) > 0L
+    ) {
       distinct_abort(
         c(
           "Each element of `levels` must be a unique subset of the dimension columns.",
@@ -491,8 +511,14 @@ resolve_output_names <- function(dimensions, count_name, .name_repair) {
 
 # Materialize one grouping level: subset the dimensions, deduplicate at this
 # level and count distinct non-missing ids.
-render_level <- function(state, level_dims, count_name, grouping_name,
-                         all_dimensions, zero_level_dims) {
+render_level <- function(
+  state,
+  level_dims,
+  count_name,
+  grouping_name,
+  all_dimensions,
+  zero_level_dims
+) {
   n_dims <- length(all_dimensions)
   omitted <- !(all_dimensions %in% level_dims)
 
@@ -507,9 +533,11 @@ render_level <- function(state, level_dims, count_name, grouping_name,
     # Zero-person groups belong only to the level where their full dimension
     # combination was observed: a zero group at a coarser level would be
     # indistinguishable from "no data" at that level and must not be invented.
-    if (length(zero_level_dims) == length(level_dims) &&
-      all(zero_level_dims %in% level_dims) &&
-      vec_size(state$zero_groups) > 0L) {
+    if (
+      length(zero_level_dims) == length(level_dims) &&
+        all(zero_level_dims %in% level_dims) &&
+        vec_size(state$zero_groups) > 0L
+    ) {
       zero_keys <- vec_unique(state$zero_groups[level_dims])
       keys <- vec_unique(vec_rbind(keys, zero_keys))
     }
@@ -598,11 +626,17 @@ render_level <- function(state, level_dims, count_name, grouping_name,
 #'
 #' # Only the grand total and a region subtotal
 #' collect_distinct_report(st, levels = list("region", character(0)))
-collect_distinct_report <- function(state, levels = NULL, count_name = "n",
-                                    .name_repair = c(
-                                      "check_unique", "unique", "universal",
-                                      "minimal"
-                                    )) {
+collect_distinct_report <- function(
+  state,
+  levels = NULL,
+  count_name = "n",
+  .name_repair = c(
+    "check_unique",
+    "unique",
+    "universal",
+    "minimal"
+  )
+) {
   call <- rlang::caller_env()
 
   if (!is_distinct_state(state)) {
@@ -733,9 +767,12 @@ format.tbl_df_distinct_state <- function(x, ...) {
   c(
     paste0(
       "<distinct_state> ",
-      vec_size(x$records), " deduplicated (",
+      vec_size(x$records),
+      " deduplicated (",
       if (nzchar(dims)) dims else "no dimensions",
-      ", ", id_label, ") record(s)"
+      ", ",
+      id_label,
+      ") record(s)"
     ),
     paste0(vec_size(x$zero_groups), " zero-person group(s)")
   )
