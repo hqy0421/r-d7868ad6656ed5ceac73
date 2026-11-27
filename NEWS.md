@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# tibble 3.3.1.9034
+
+## Chore
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/hqy0421/r-d7868ad6656ed5ceac73/actions/runs/45791628999
+
+
 # tibble 3.3.1.9033
 
 ## Chore
